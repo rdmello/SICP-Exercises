@@ -43,3 +43,47 @@
 ;;;           guess
 ;;;           (sqrt-iter (improve-guess guess x) x)))
 
+;;;
+;;; Section 1.2
+;;;
+
+; factorial function (linear recursive)
+(define (my-factorial x) 
+  (* x 
+     (if (<= x 1) 1 (my-factorial (- x 1)))))
+
+; factorial function (linear iterative)
+(define (my-factorial-iter n)
+  (define (fact-iter product counter)
+    (if (<= counter n) 
+        (fact-iter (* product counter) (+ counter 1))
+        product))
+  (fact-iter 1 1))
+
+; Ackermann's function
+(define (A x y)
+  (cond ((= y 0) 0)
+        ((= x 0) (* 2 y))
+        ((= y 1) 2)
+        (else (A (- x 1) (A x (- y 1))))))
+
+(define (f n) (A 0 n))  ; = 2n
+(define (g n) (A 1 n))  ; = 2 ^ n
+(define (h n) (A 2 n))  ; = 2 ^ 2 ^ n
+
+; Fibonacci numbers
+(define (fibo n)
+  (cond ((= n 0) 0)
+        ((= n 1) 1)
+        (else (+ (fibo (- n 1)) 
+                 (fibo (- n 2))))))
+
+; Fibonacci (iterative)
+(define (fibo-iter n)
+  (define (fi a b count)
+    (if (= count 0) 
+        b
+        (fi (+ a b) a (- count 1))))
+  (fi 1 0 n))
+
+
